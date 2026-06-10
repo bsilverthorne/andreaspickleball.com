@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea's Pickleball — Upcoming Events</title>
+<meta name="description" content="All of Andrea's upcoming pickleball round robins, clinics, and drill times in the Longview & Marshall, TX area — with signup links.">
+<style>
+  :root {
+    --green: #2d7a4f;
+    --green-dark: #235e3d;
+    --bg: #f6f7f5;
+    --card: #ffffff;
+    --border: #e3e6e1;
+    --text: #1d2520;
+    --muted: #68716b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+  a { color: var(--green); }
+
+  header { background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); color: #fff; padding: 30px 20px 24px; text-align: center; }
+  header h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  header p { font-size: 14px; opacity: 0.85; margin-top: 6px; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 16px 0 4px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1.5px solid var(--border); background: var(--card); border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .chip.active { color: #fff; border-color: transparent; }
+
+  .view-toggle { display: flex; border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; background: var(--card); }
+  .view-toggle button { border: none; background: transparent; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); }
+  .view-toggle button.active { background: var(--green); color: #fff; }
+
+  /* ---------- List view ---------- */
+  .date-head { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 26px 4px 10px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-left: 5px solid var(--green); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; display: flex; gap: 12px; align-items: center; }
+  .card-main { flex: 1; min-width: 0; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; color: #fff; }
+  .badge.outline { background: transparent; border: 1px solid var(--border); color: var(--muted); font-weight: 600; }
+  .badge.dupr { background: #4338ca; }
+  .card h3 { font-size: 15.5px; font-weight: 700; line-height: 1.35; }
+  .meta { font-size: 13px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+  .signup { flex-shrink: 0; background: var(--green); color: #fff; text-decoration: none; font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 9px; white-space: nowrap; }
+  .signup:hover { background: var(--green-dark); }
+
+  .empty { text-align: center; color: var(--muted); padding: 60px 20px; font-size: 14px; }
+
+  /* ---------- Calendar view ---------- */
+  .cal-nav { display: flex; align-items: center; justify-content: space-between; margin: 22px 0 12px; }
+  .cal-nav h2 { font-size: 17px; font-weight: 700; }
+  .cal-nav button { border: 1.5px solid var(--border); background: var(--card); border-radius: 8px; padding: 6px 13px; font-size: 14px; cursor: pointer; color: var(--text); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-dow { text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; padding: 4px 0; }
+  .cal-day { background: var(--card); border: 1px solid var(--border); border-radius: 8px; min-height: 74px; padding: 4px; font-size: 11px; }
+  .cal-day.blank { background: transparent; border: none; }
+  .cal-day.past { opacity: 0.45; }
+  .cal-day .num { font-weight: 700; color: var(--muted); margin: 1px 2px 3px; }
+  .cal-day.today { border-color: var(--green); border-width: 2px; }
+  .cal-day.today .num { color: var(--green); }
+  .cal-evt { display: block; color: #fff; text-decoration: none; border-radius: 5px; padding: 2.5px 5px; margin-bottom: 3px; font-weight: 600; line-height: 1.25; overflow: hidden; }
+
+  footer { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 22px; }
+  footer h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 10px; }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 7px; font-size: 14px; }
+  footer .credit { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 540px) {
+    .card { flex-direction: column; align-items: stretch; }
+    .signup { text-align: center; }
+    .cal-day { min-height: 58px; }
+    .cal-evt { font-size: 9.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏓 Andrea's Pickleball</h1>
+  <p>Round robins, clinics &amp; drill times — Longview &amp; Marshall, TX</p>
+</header>
+
+<div class="wrap">
+  <nav class="controls">
+    <div class="chips" id="chips"></div>
+    <div class="view-toggle" id="view-toggle">
+      <button data-view="list" class="active">List</button>
+      <button data-view="calendar">Calendar</button>
+    </div>
+  </nav>
+
+  <main id="content"></main>
+
+  <footer>
+    <h4>All signup pages</h4>
+    <ul id="footer-links"></ul>
+    <p class="credit">Questions? Find Andrea on the Andrea's PB GroupMe.</p>
+  </footer>
+</div>
+
+<script src="events.js"></script>
+<script>
+(function () {
+  const state = { venue: 'ALL', view: 'list', calYear: null, calMonth: null };
+
+  function parseDate(str) {
+    const [y, m, d] = str.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  }
+  function today() {
+    const n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
+  function timeMinutes(t) {
+    if (!t) return 0;
+    const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (!m) return 0;
+    let h = Number(m[1]) % 12;
+    if (m[3].toUpperCase() === 'PM') h += 12;
+    return h * 60 + Number(m[2]);
+  }
+  function upcoming() {
+    const t = today();
+    return EVENTS
+      .filter(e => parseDate(e.date) >= t)
+      .filter(e => state.venue === 'ALL' || e.venue === state.venue)
+      .sort((a, b) => (a.date.localeCompare(b.date)) || (timeMinutes(a.time) - timeMinutes(b.time)));
+  }
+
+  /* ----- venue filter chips ----- */
+  function renderChips() {
+    const el = document.getElementById('chips');
+    el.innerHTML = '';
+    const all = document.createElement('button');
+    all.className = 'chip' + (state.venue === 'ALL' ? ' active' : '');
+    if (state.venue === 'ALL') all.style.background = 'var(--green)';
+    all.textContent = 'All';
+    all.onclick = () => { state.venue = 'ALL'; render(); };
+    el.appendChild(all);
+    Object.keys(VENUES).forEach(key => {
+      const v = VENUES[key];
+      const b = document.createElement('button');
+      b.className = 'chip' + (state.venue === key ? ' active' : '');
+      if (state.venue === key) b.style.background = v.color;
+      b.innerHTML = '<span class="dot" style="background:' + v.color + '"></span>' + key;
+      b.onclick = () => { state.venue = key; render(); };
+      el.appendChild(b);
+    });
+  }
+
+  /* ----- list view ----- */
+  function renderList(root) {
+    const events = upcoming();
+    if (!events.length) {
+      root.innerHTML = '<div class="empty">No upcoming events here right now — check back soon!</div>';
+      return;
+    }
+    let lastDate = '';
+    events.forEach(e => {
+      if (e.date !== lastDate) {
+        lastDate = e.date;
+        const h = document.createElement('div');
+        h.className = 'date-head';
+        h.textContent = parseDate(e.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+        root.appendChild(h);
+      }
+      const v = VENUES[e.venue];
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.borderLeftColor = v.color;
+
+      const time = e.time + (e.endTime ? ' – ' + e.endTime : '');
+      const place = v.name + (e.locationDetail ? ' · ' + e.locationDetail : '');
+      card.innerHTML =
+        '<div class="card-main">' +
+          '<div class="badges">' +
+            '<span class="badge" style="background:' + v.color + '">' + e.venue + '</span>' +
+            '<span class="badge outline">' + e.type + '</span>' +
+            (e.dupr ? '<span class="badge dupr">DUPR</span>' : '') +
+          '</div>' +
+          '<h3></h3>' +
+          '<div class="meta">' + time + ' · ' + place + (e.price ? ' · ' + e.price : '') + '</div>' +
+        '</div>' +
+        '<a class="signup" target="_blank" rel="noopener">Sign Up →</a>';
+      card.querySelector('h3').textContent = e.title;
+      card.querySelector('a').href = e.link || v.link;
+      root.appendChild(card);
+    });
+  }
+
+  /* ----- calendar view ----- */
+  function renderCalendar(root) {
+    if (state.calYear === null) {
+      const first = upcoming()[0];
+      const base = first ? parseDate(first.date) : today();
+      state.calYear = base.getFullYear();
+      state.calMonth = base.getMonth();
+    }
+    const y = state.calYear, m = state.calMonth;
+    const t = today();
+
+    const nav = document.createElement('div');
+    nav.className = 'cal-nav';
+    nav.innerHTML = '<button id="prev">‹</button><h2>' +
+      new Date(y, m, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) +
+      '</h2><button id="next">›</button>';
+    root.appendChild(nav);
+    nav.querySelector('#prev').onclick = () => { state.calMonth--; if (state.calMonth < 0) { state.calMonth = 11; state.calYear--; } render(); };
+    nav.querySelector('#next').onclick = () => { state.calMonth++; if (state.calMonth > 11) { state.calMonth = 0; state.calYear++; } render(); };
+
+    const grid = document.createElement('div');
+    grid.className = 'cal-grid';
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+      const c = document.createElement('div'); c.className = 'cal-dow'; c.textContent = d; grid.appendChild(c);
+    });
+
+    // events this month (shows past days dimmed, so the whole month reads true)
+    const monthEvents = EVENTS
+      .filter(e => { const d = parseDate(e.date); return d.getFullYear() === y && d.getMonth() === m; })
+      .filter(e => state.venue === 'ALL' || e.venue === state.venue);
+
+    const firstDow = new Date(y, m, 1).getDay();
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    for (let i = 0; i < firstDow; i++) {
+      const c = document.createElement('div'); c.className = 'cal-day blank'; grid.appendChild(c);
+    }
+    for (let day = 1; day <= daysInMonth; day++) {
+      const cellDate = new Date(y, m, day);
+      const c = document.createElement('div');
+      c.className = 'cal-day' + (cellDate < t ? ' past' : '') + (cellDate.getTime() === t.getTime() ? ' today' : '');
+      c.innerHTML = '<div class="num">' + day + '</div>';
+      monthEvents.filter(e => parseDate(e.date).getDate() === day).forEach(e => {
+        const v = VENUES[e.venue];
+        const a = document.createElement('a');
+        a.className = 'cal-evt';
+        a.style.background = v.color;
+        a.href = e.link || v.link;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.title = e.title + ' — ' + e.time;
+        a.textContent = e.title;
+        c.appendChild(a);
+      });
+      grid.appendChild(c);
+    }
+    root.appendChild(grid);
+  }
+
+  /* ----- footer ----- */
+  function renderFooter() {
+    const ul = document.getElementById('footer-links');
+    FOOTER_LINKS.forEach(l => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = l.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = l.label;
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+  }
+
+  function render() {
+    renderChips();
+    document.querySelectorAll('#view-toggle button').forEach(b => {
+      b.classList.toggle('active', b.dataset.view === state.view);
+    });
+    const root = document.getElementById('content');
+    root.innerHTML = '';
+    if (state.view === 'list') renderList(root); else renderCalendar(root);
+  }
+
+  document.querySelectorAll('#view-toggle button').forEach(b => {
+    b.onclick = () => { state.view = b.dataset.view; render(); };
+  });
+
+  renderFooter();
+  render();
+})();
+</script>
+</body>
+</html>
