@@ -31,6 +31,9 @@
   .chip .dot { width: 9px; height: 9px; border-radius: 50%; }
   .chip.active { color: #fff; border-color: transparent; }
 
+  .rating-select { border: 1.5px solid var(--border); background: var(--card); border-radius: 999px; padding: 6px 10px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; max-width: 140px; }
+  .rating-select.active { border-color: var(--green); color: var(--green); }
+
   .view-toggle { display: flex; border: 1.5px solid var(--border); border-radius: 9px; overflow: hidden; background: var(--card); }
   .view-toggle button { border: none; background: transparent; padding: 7px 16px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); }
   .view-toggle button.active { background: var(--green); color: #fff; }
@@ -88,6 +91,7 @@
 <div class="wrap">
   <nav class="controls">
     <div class="chips" id="chips"></div>
+    <select id="rating-select" class="rating-select" aria-label="Filter by rating"></select>
     <div class="view-toggle" id="view-toggle">
       <button data-view="list">List</button>
       <button data-view="calendar" class="active">Calendar</button>
@@ -106,7 +110,33 @@
 <script src="events.js"></script>
 <script>
 (function () {
-  const state = { venue: 'ALL', view: 'calendar', calYear: null, calMonth: null };
+  const state = { venue: 'ALL', rating: 'ALL', view: 'calendar', calYear: null, calMonth: null };
+
+  // Title is assembled from parts in a fixed order:
+  // [gender] [format] [rating] [type] [extra]
+  function buildTitle(e) {
+    if (e.titleOverride) return e.titleOverride;
+    return [e.gender, e.format, e.rating, e.type, e.extra].filter(Boolean).join(' ');
+  }
+
+  // Turn a rating string into a numeric range so variations can be
+  // compared: "2.5" (division) → 2.50–2.99, "3.0+" → 3.0 and up,
+  // "2.0–2.99" → as written, "3.3" → handled as the 3.3 spot rating.
+  function parseRating(str) {
+    if (!str) return null;
+    const nums = String(str).match(/\d+(?:\.\d+)?/g);
+    if (!nums) return null;
+    const min = parseFloat(nums[0]);
+    let max = str.indexOf('+') !== -1 ? 99 : parseFloat(nums[nums.length - 1]);
+    // A division shorthand like 2.5 or 3.0 means "that whole bracket"
+    if ((max * 10) % 5 === 0) max += 0.49;
+    return { min: min, max: max };
+  }
+  function matchesRating(e) {
+    if (state.rating === 'ALL') return true;
+    const er = parseRating(e.rating), fr = parseRating(state.rating);
+    return !!(er && fr) && er.min <= fr.max && fr.min <= er.max;
+  }
 
   function parseDate(str) {
     const [y, m, d] = str.split('-').map(Number);
@@ -129,6 +159,7 @@
     return EVENTS
       .filter(e => parseDate(e.date) >= t)
       .filter(e => state.venue === 'ALL' || e.venue === state.venue)
+      .filter(matchesRating)
       .sort((a, b) => (a.date.localeCompare(b.date)) || (timeMinutes(a.time) - timeMinutes(b.time)));
   }
 
@@ -151,6 +182,34 @@
       b.onclick = () => { state.venue = key; render(); };
       el.appendChild(b);
     });
+  }
+
+  /* ----- rating filter dropdown ----- */
+  function setupRatingSelect() {
+    const sel = document.getElementById('rating-select');
+    const t = today();
+    const seen = [];
+    EVENTS.filter(e => parseDate(e.date) >= t && e.rating).forEach(e => {
+      if (seen.indexOf(e.rating) === -1) seen.push(e.rating);
+    });
+    seen.sort((a, b) => {
+      const ra = parseRating(a), rb = parseRating(b);
+      return (ra.min - rb.min) || (ra.max - rb.max);
+    });
+    sel.innerHTML = '';
+    const all = document.createElement('option');
+    all.value = 'ALL'; all.textContent = 'All ratings';
+    sel.appendChild(all);
+    seen.forEach(r => {
+      const o = document.createElement('option');
+      o.value = r; o.textContent = r;
+      sel.appendChild(o);
+    });
+    sel.onchange = () => {
+      state.rating = sel.value;
+      sel.classList.toggle('active', state.rating !== 'ALL');
+      render();
+    };
   }
 
   /* ----- list view ----- */
@@ -187,7 +246,7 @@
           '<div class="meta">' + time + ' · ' + place + (e.price ? ' · ' + e.price : '') + '</div>' +
         '</div>' +
         '<a class="signup" target="_blank" rel="noopener">Sign Up →</a>';
-      card.querySelector('h3').textContent = e.title;
+      card.querySelector('h3').textContent = buildTitle(e);
       card.querySelector('a').href = e.link || v.link;
       root.appendChild(card);
     });
@@ -222,7 +281,8 @@
     // events this month (shows past days dimmed, so the whole month reads true)
     const monthEvents = EVENTS
       .filter(e => { const d = parseDate(e.date); return d.getFullYear() === y && d.getMonth() === m; })
-      .filter(e => state.venue === 'ALL' || e.venue === state.venue);
+      .filter(e => state.venue === 'ALL' || e.venue === state.venue)
+      .filter(matchesRating);
 
     const firstDow = new Date(y, m, 1).getDay();
     const daysInMonth = new Date(y, m + 1, 0).getDate();
@@ -242,8 +302,8 @@
         a.href = e.link || v.link;
         a.target = '_blank';
         a.rel = 'noopener';
-        a.title = e.title + ' — ' + e.time;
-        a.textContent = e.title;
+        a.title = buildTitle(e) + ' — ' + e.time;
+        a.textContent = buildTitle(e);
         c.appendChild(a);
       });
       grid.appendChild(c);
@@ -277,6 +337,7 @@
     b.onclick = () => { state.view = b.dataset.view; render(); };
   });
 
+  setupRatingSelect();
   renderFooter();
   render();
 })();
