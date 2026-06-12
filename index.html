@@ -113,10 +113,10 @@
   const state = { venue: 'ALL', rating: 'ALL', view: 'calendar', calYear: null, calMonth: null };
 
   // Title is assembled from parts in a fixed order:
-  // [gender] [format] [rating] [type] [extra]
+  // [rating] [gender] [format] [type] [extra]
   function buildTitle(e) {
     if (e.titleOverride) return e.titleOverride;
-    return [e.gender, e.format, e.rating, e.type, e.extra].filter(Boolean).join(' ');
+    return [e.rating, e.gender, e.format, e.type, e.extra].filter(Boolean).join(' ');
   }
 
   // Turn a rating string into a numeric range so variations can be
@@ -188,13 +188,16 @@
   function setupRatingSelect() {
     const sel = document.getElementById('rating-select');
     const t = today();
-    const seen = [];
-    EVENTS.filter(e => parseDate(e.date) >= t && e.rating).forEach(e => {
-      if (seen.indexOf(e.rating) === -1) seen.push(e.rating);
-    });
-    seen.sort((a, b) => {
-      const ra = parseRating(a), rb = parseRating(b);
-      return (ra.min - rb.min) || (ra.max - rb.max);
+    // Dropdown only ever shows standard divisions (one digit, one
+    // decimal). Ranged events like "2.0–2.99" show up under every
+    // division they overlap.
+    const DIVISIONS = ['2.0', '2.5', '3.0', '3.5', '4.0'];
+    const upcomingRatings = EVENTS
+      .filter(e => parseDate(e.date) >= t && e.rating)
+      .map(e => parseRating(e.rating));
+    const seen = DIVISIONS.filter(d => {
+      const dr = parseRating(d);
+      return upcomingRatings.some(er => er && er.min <= dr.max && dr.min <= er.max);
     });
     sel.innerHTML = '';
     const all = document.createElement('option');

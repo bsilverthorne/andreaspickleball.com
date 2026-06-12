@@ -6,9 +6,9 @@
 //  by hand, mirror the change back into EVENTS.md.
 //
 //  Each event's TITLE is built automatically from its parts, in
-//  this order:   [gender] [format] [rating] [type] [extra]
-//  e.g.  Women's + Partner + 2.5 + Round Robin + w/Andrea
-//     →  "Women's Partner 2.5 Round Robin w/Andrea"
+//  this order:   [rating] [gender] [format] [type] [extra]
+//  e.g.  2.5 + Women's + Partner + Round Robin + w/Andrea
+//     →  "2.5 Women's Partner Round Robin w/Andrea"
 //
 //  Field guide:
 //    date     — "YYYY-MM-DD"  (e.g. "2026-06-15")
