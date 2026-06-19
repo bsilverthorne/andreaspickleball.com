@@ -5,6 +5,11 @@
 //  This file is generated from that markdown — if you edit it
 //  by hand, mirror the change back into EVENTS.md.
 //
+//  ORDER: keep events in chronological order — by date, and within
+//  a single day from earliest to latest start time. The calendar now
+//  also sorts each day by time, but keeping the file in order keeps it
+//  readable and matches what people expect.
+//
 //  Each event's TITLE is built automatically from its parts, in
 //  this order:   [rating] [gender] [format] [type] [extra]
 //  e.g.  2.5 + Women's + Partner + Round Robin + w/Andrea
@@ -151,13 +156,6 @@ const EVENTS = [
     link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/",
   },
   {
-    date: "2026-07-06", time: "6:00 PM", endTime: "9:00 PM",
-    gender: "Mixed", format: "", rating: "3.5", extra: "w/Andrea", titleOverride: "",
-    type: "Round Robin", venue: "LPC", locationDetail: "",
-    dupr: true, price: "$30",
-    link: "https://www.longviewpickleballclub.com/events",
-  },
-  {
     date: "2026-07-06", time: "8:30 AM", endTime: "12:00 PM",
     gender: "Women's", format: "Partner", rating: "2.5", extra: "(ages 60+)", titleOverride: "",
     type: "Round Robin", venue: "COL", locationDetail: "Paula Martin Jones",
@@ -165,11 +163,11 @@ const EVENTS = [
     link: "https://anc.apm.activecommunities.com/longviewpard/activity/search/detail/4480?onlineSiteId=0&from_original_cui=true",
   },
   {
-    date: "2026-07-09", time: "5:30 PM", endTime: "8:00 PM",
-    gender: "", format: "", rating: "", extra: "", titleOverride: "Beginner Pickleball Clinic (Level One)",
-    type: "Clinic", venue: "COL", locationDetail: "Broughton Rec Center",
-    dupr: false, price: "$55",
-    link: "https://anc.apm.activecommunities.com/longviewpard/activity/search/detail/4478?onlineSiteId=0&from_original_cui=true",
+    date: "2026-07-06", time: "6:00 PM", endTime: "9:00 PM",
+    gender: "Mixed", format: "", rating: "3.5", extra: "w/Andrea", titleOverride: "",
+    type: "Round Robin", venue: "LPC", locationDetail: "",
+    dupr: true, price: "$30",
+    link: "https://www.longviewpickleballclub.com/events",
   },
   {
     date: "2026-07-09", time: "8:30 AM", endTime: "12:00 PM",
@@ -177,6 +175,13 @@ const EVENTS = [
     type: "Round Robin", venue: "FCC", locationDetail: "",
     dupr: false, price: "$15",
     link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/",
+  },
+  {
+    date: "2026-07-09", time: "5:30 PM", endTime: "8:00 PM",
+    gender: "", format: "", rating: "", extra: "", titleOverride: "Beginner Pickleball Clinic (Level One)",
+    type: "Clinic", venue: "COL", locationDetail: "Broughton Rec Center",
+    dupr: false, price: "$55",
+    link: "https://anc.apm.activecommunities.com/longviewpard/activity/search/detail/4478?onlineSiteId=0&from_original_cui=true",
   },
   {
     date: "2026-07-13", time: "8:30 AM", endTime: "12:00 PM",

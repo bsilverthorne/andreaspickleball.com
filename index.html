@@ -282,10 +282,13 @@
     });
 
     // events this month (shows past days dimmed, so the whole month reads true)
+    // sorted by time so each day lists earliest → latest regardless of the
+    // order events happen to sit in events.js
     const monthEvents = EVENTS
       .filter(e => { const d = parseDate(e.date); return d.getFullYear() === y && d.getMonth() === m; })
       .filter(e => state.venue === 'ALL' || e.venue === state.venue)
-      .filter(matchesRating);
+      .filter(matchesRating)
+      .sort((a, b) => a.date.localeCompare(b.date) || (timeMinutes(a.time) - timeMinutes(b.time)));
 
     const firstDow = new Date(y, m, 1).getDay();
     const daysInMonth = new Date(y, m + 1, 0).getDate();
