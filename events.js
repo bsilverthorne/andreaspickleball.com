@@ -151,13 +151,6 @@ const EVENTS = [
     link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/",
   },
   {
-    date: "2026-07-06", time: "8:30 AM", endTime: "",
-    gender: "Men & Women", format: "", rating: "2.0–2.99", extra: "", titleOverride: "",
-    type: "Drill Time", venue: "FCC", locationDetail: "",
-    dupr: false, price: "$15",
-    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/",
-  },
-  {
     date: "2026-07-06", time: "6:00 PM", endTime: "9:00 PM",
     gender: "Mixed", format: "", rating: "3.5", extra: "w/Andrea", titleOverride: "",
     type: "Round Robin", venue: "LPC", locationDetail: "",
