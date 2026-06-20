@@ -107,13 +107,6 @@ const EVENTS = [
     link: "https://www.longviewpickleballclub.com/events",
   },
   {
-    date: "2026-06-23", time: "8:30 AM", endTime: "",
-    gender: "Youth", format: "", rating: "3.0", extra: "(ages 14–18)", titleOverride: "",
-    type: "Round Robin", venue: "FCC", locationDetail: "",
-    dupr: false, price: "",
-    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64383324-youth#/",
-  },
-  {
     date: "2026-06-24", time: "8:30 AM", endTime: "",
     gender: "Women's", format: "Partner", rating: "2.0", extra: "", titleOverride: "",
     type: "Round Robin", venue: "FCC", locationDetail: "",
