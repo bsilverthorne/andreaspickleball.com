@@ -66,6 +66,7 @@
   .cal-day.today { border-color: var(--green); border-width: 2px; }
   .cal-day.today .num { color: var(--green); }
   .cal-evt { display: block; color: #fff; text-decoration: none; border-radius: 5px; padding: 2.5px 5px; margin-bottom: 3px; font-weight: 600; line-height: 1.25; overflow: hidden; }
+  .cal-evt-time { display: block; margin-top: 2px; font-weight: 400; }
 
   footer { border-top: 1px solid var(--border); margin-top: 40px; padding-top: 22px; }
   footer h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 10px; }
@@ -309,7 +310,11 @@
         a.target = '_blank';
         a.rel = 'noopener';
         a.title = buildTitle(e) + ' — ' + e.time;
-        a.textContent = buildTitle(e) + ' — ' + e.time;
+        a.appendChild(document.createTextNode(buildTitle(e)));
+        const tm = document.createElement('span');
+        tm.className = 'cal-evt-time';
+        tm.textContent = e.time;
+        a.appendChild(tm);
         c.appendChild(a);
       });
       grid.appendChild(c);
