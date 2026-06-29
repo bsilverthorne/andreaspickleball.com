@@ -309,7 +309,7 @@
         a.target = '_blank';
         a.rel = 'noopener';
         a.title = buildTitle(e) + ' — ' + e.time;
-        a.textContent = buildTitle(e);
+        a.textContent = buildTitle(e) + ' — ' + e.time;
         c.appendChild(a);
       });
       grid.appendChild(c);
