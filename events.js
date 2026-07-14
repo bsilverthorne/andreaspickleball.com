@@ -1,9 +1,8 @@
 // ============================================================
 //  ANDREA'S PICKLEBALL — EVENT DATA
 //
-//  NOTE: Andrea edits events in share-apb/EVENTS.md (Dropbox).
-//  This file is generated from that markdown — if you edit it
-//  by hand, mirror the change back into EVENTS.md.
+//  NOTE: This file is generated from Andrea's master event list —
+//  if you edit it by hand, mirror the change back into that list.
 //
 //  ORDER: keep events in chronological order — by date, and within
 //  a single day from earliest to latest start time. The calendar now
@@ -182,6 +181,13 @@ const EVENTS = [
     type: "Round Robin", venue: "LPC", locationDetail: "",
     dupr: true, price: "$30",
     link: "https://www.longviewpickleballclub.com/events",
+  },
+  {
+    date: "2026-07-16", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Men & Women", format: "Individual", rating: "2.0–2.2", extra: "(Friendly, only 8 games, non-DUPR)", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: false, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/",
   },
   {
     date: "2026-07-20", time: "8:30 AM", endTime: "12:00 PM",
