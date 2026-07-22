@@ -34,7 +34,7 @@
 
 const VENUES = {
   LPC: { name: "Longview Pickleball Club", color: "#2d7a4f", link: "https://www.longviewpickleballclub.com/events" },
-  FCC: { name: "First Christian Church",   color: "#d4a017", link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/" },
+  FCC: { name: "First Christian Church",   color: "#d4a017", link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/" },
   MCC: { name: "Marshall Convention Center", color: "#e07b39", link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-58203515-marshall#/" },
   COL: { name: "City of Longview",         color: "#2c5f8a", link: "https://anc.apm.activecommunities.com/longviewpard/activity/search?activity_keyword=pickleball" },
 };
@@ -42,7 +42,7 @@ const VENUES = {
 // Extra links shown in the footer (FCC Youth has its own signup page)
 const FOOTER_LINKS = [
   { label: "LPC Events",  url: "https://www.longviewpickleballclub.com/events" },
-  { label: "FCC Adult Signups", url: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-61342694-fccround#/" },
+  { label: "FCC Adult Signups", url: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/" },
   { label: "FCC Youth Signups", url: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64383324-youth#/" },
   { label: "MCC Signups", url: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-58203515-marshall#/" },
   { label: "City of Longview Registration", url: "https://anc.apm.activecommunities.com/longviewpard/activity/search?activity_keyword=pickleball" },
@@ -260,6 +260,20 @@ const EVENTS = [
     link: "https://www.longviewpickleballclub.com/events",
   },
   {
+    date: "2026-08-06", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Women's", format: "Partner", rating: "3.0–3.49", extra: "", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: true, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
+  },
+  {
+    date: "2026-08-10", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Women's", format: "Individual", rating: "2.0–2.2", extra: "(Friendly, only 8 games, non-DUPR)", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: false, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
+  },
+  {
     date: "2026-08-10", time: "6:00 PM", endTime: "9:00 PM",
     gender: "Women's", format: "Partner", rating: "3.5", extra: "w/Andrea", titleOverride: "",
     type: "Round Robin", venue: "LPC", locationDetail: "",
@@ -281,10 +295,31 @@ const EVENTS = [
     link: "https://anc.apm.activecommunities.com/longviewpard/activity/search/detail/4504?onlineSiteId=0&from_original_cui=true",
   },
   {
+    date: "2026-08-13", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Mixed", format: "Partner", rating: "3.0", extra: "", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: true, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
+  },
+  {
+    date: "2026-08-17", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Women's", format: "Partner", rating: "2.0–2.5", extra: "", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: true, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
+  },
+  {
     date: "2026-08-17", time: "6:00 PM", endTime: "9:00 PM",
     gender: "Mixed", format: "Partner", rating: "7.5+", extra: "(Cumulative, non-DUPR) w/Andrea", titleOverride: "",
     type: "Round Robin", venue: "LPC", locationDetail: "",
     dupr: false, price: "$15",
     link: "https://www.longviewpickleballclub.com/events",
+  },
+  {
+    date: "2026-08-24", time: "8:30 AM", endTime: "10:30 AM",
+    gender: "Men & Women", format: "", rating: "2.0+", extra: "", titleOverride: "",
+    type: "Drill Time", venue: "FCC", locationDetail: "",
+    dupr: false, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
   },
 ];
