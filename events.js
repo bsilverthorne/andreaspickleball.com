@@ -281,13 +281,6 @@ const EVENTS = [
     link: "https://www.longviewpickleballclub.com/events",
   },
   {
-    date: "2026-08-11", time: "6:30 PM", endTime: "9:30 PM",
-    gender: "Mixed", format: "", rating: "2.5", extra: "", titleOverride: "",
-    type: "Round Robin", venue: "MCC", locationDetail: "",
-    dupr: true, price: "$20",
-    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-58203515-marshall#/",
-  },
-  {
     date: "2026-08-12", time: "8:30 AM", endTime: "12:00 PM",
     gender: "Women's", format: "Partner", rating: "2.5", extra: "(ages 64+)", titleOverride: "",
     type: "Round Robin", venue: "COL", locationDetail: "Paula Martin Jones",
@@ -314,6 +307,13 @@ const EVENTS = [
     type: "Round Robin", venue: "LPC", locationDetail: "",
     dupr: false, price: "$15",
     link: "https://www.longviewpickleballclub.com/events",
+  },
+  {
+    date: "2026-08-18", time: "6:30 PM", endTime: "9:30 PM",
+    gender: "Mixed", format: "", rating: "2.5", extra: "", titleOverride: "",
+    type: "Round Robin", venue: "MCC", locationDetail: "",
+    dupr: true, price: "$20",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-58203515-marshall#/",
   },
   {
     date: "2026-08-24", time: "8:30 AM", endTime: "10:30 AM",
