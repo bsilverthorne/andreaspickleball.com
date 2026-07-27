@@ -316,6 +316,13 @@ const EVENTS = [
     link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-58203515-marshall#/",
   },
   {
+    date: "2026-08-20", time: "8:30 AM", endTime: "12:00 PM",
+    gender: "Women's", format: "Individual", rating: "2.5", extra: "", titleOverride: "",
+    type: "Round Robin", venue: "FCC", locationDetail: "",
+    dupr: true, price: "$15",
+    link: "https://www.signupgenius.com/go/10C0C4BADAD23A0FC1-64816339-fccpickleball#/",
+  },
+  {
     date: "2026-08-24", time: "8:30 AM", endTime: "10:30 AM",
     gender: "Men & Women", format: "", rating: "2.0+", extra: "", titleOverride: "",
     type: "Drill Time", venue: "FCC", locationDetail: "",
